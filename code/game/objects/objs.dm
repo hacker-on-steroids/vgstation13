@@ -46,6 +46,7 @@ var/global/list/reagents_to_log = list(FUEL, PLASMA, PACID, SACID, AMUTATIONTOXI
 	var/list/alphas_obj = list()
 	var/impactsound
 	var/current_glue_state = GLUE_STATE_NONE
+	var/last_glue_application = 0
 
 	//Does this item have a slime installed?
 	var/has_slime = 0
@@ -88,6 +89,11 @@ var/global/list/reagents_to_log = list(FUEL, PLASMA, PACID, SACID, AMUTATIONTOXI
 		cookvesselimage.pixel_x = offset_x
 		cookvesselimage.pixel_y = offset_y
 		overlays += cookvesselimage
+		if (particles)
+			particles.position = list(offset_x,offset_y)
+	else
+		if (particles)
+			particles.position = 0
 
 /obj/proc/cook_temperature() //Returns the temperature the object cooks at.
 	return COOKTEMP_DEFAULT
@@ -266,6 +272,10 @@ var/global/list/reagents_to_log = list(FUEL, PLASMA, PACID, SACID, AMUTATIONTOXI
 		return 1
 	return
 
+/obj/clean_act(var/cleanliness)
+	..()
+	if (cleanliness >= CLEANLINESS_WATER)
+		unglue()
 
 /obj/proc/cultify()
 	qdel(src)
@@ -947,3 +957,17 @@ a {
 
 /obj/get_heat_conductivity() //So keeping something in a closet can have an insulating effect.
 	return 0.5
+
+//This subtype is used by stuff that should generally not be disturbed by those procs
+/obj/abstract
+	anchored = TRUE
+/obj/abstract/cultify()
+	return
+/obj/abstract/ex_act()
+	return
+/obj/abstract/emp_act()
+	return
+/obj/abstract/blob_act()
+	return
+/obj/abstract/singularity_act()
+	return
