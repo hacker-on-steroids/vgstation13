@@ -2,24 +2,29 @@
 	name = "\improper PDA Terminal"
 	desc = "It can be used to download Apps on your PDA."
 	icon_state = "pdaterm"
+	moody_state = "overlay_pdaterm"
 	circuit = "/obj/item/weapon/circuitboard/pda_terminal"
 	light_color = LIGHT_COLOR_ORANGE
 
-	var/obj/item/device/flashlight/pda/pda_device = null
+	var/obj/item/device/pda/pda_device = null
 	var/machine_id = ""
 
 	machine_flags = EMAGGABLE | SCREWTOGGLE | WRENCHMOVE | FIXED2WORK | MULTITOOL_MENU | PURCHASER
 	computer_flags = NO_ONOFF_ANIMS
 
+	var/image/pda_icon
+	var/image/light_icon
+
 /obj/machinery/computer/pda_terminal/New()
 	..()
 	machine_id = "[station_name()] PDA Terminal #[multinum_display(num_pda_terminals,4)]"
 	num_pda_terminals++
-
+	pda_icon = image(icon = icon, icon_state = "pdaterm-full")
+	light_icon = image(icon = icon, icon_state = "pdaterm-light")
 	if(ticker)
 		initialize()
 
-/obj/machinery/computer/pda_terminal/proc/format_apps(var/obj/item/device/flashlight/pda/pda_hardware)//makes a list of all the apps that aren't yet installed on the PDA
+/obj/machinery/computer/pda_terminal/proc/format_apps(var/obj/item/device/pda/pda_hardware)//makes a list of all the apps that aren't yet installed on the PDA
 	if(!istype(pda_hardware))
 		return list()
 
@@ -51,7 +56,7 @@
 /obj/machinery/computer/pda_terminal/proc/get_display_desc(var/datum/pda_app/app)
 	return "[app.desc]"
 
-/obj/machinery/computer/pda_terminal/attackby(obj/item/device/flashlight/pda/user_pda, mob/user)
+/obj/machinery/computer/pda_terminal/attackby(obj/item/device/pda/user_pda, mob/user)
 	if(!istype(user_pda))
 		return ..()
 
@@ -119,7 +124,7 @@
 					pda_device = null
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if (istype(I, /obj/item/device/flashlight/pda))
+				if (istype(I, /obj/item/device/pda))
 					if(usr.drop_item(I, src))
 						pda_device = I
 			update_icon()
@@ -170,9 +175,9 @@
 						to_chat(usr, "[bicon(src)]<span class='notice'>Enjoy your new PDA!</span>")
 						flick("pdaterm-purchase", src)
 						if(prob(10))
-							new /obj/item/device/flashlight/pda/clear(src.loc)//inserting mandatory hidden feature.
+							new /obj/item/device/pda/clear(src.loc)//inserting mandatory hidden feature.
 						else
-							new /obj/item/device/flashlight/pda(src.loc)
+							new /obj/item/device/pda(src.loc)
 					else
 						flick("pdaterm-problem", src)
 				else
@@ -206,8 +211,9 @@
 
 /obj/machinery/computer/pda_terminal/update_icon()
 	..()
-	overlays = 0
+	overlays -= pda_icon
+	overlays -= light_icon
 	if(pda_device)
-		overlays += image(icon = icon, icon_state = "pdaterm-full")
+		overlays += pda_icon
 		if(stat == 0)
-			overlays += image(icon = icon, icon_state = "pdaterm-light")
+			overlays += light_icon

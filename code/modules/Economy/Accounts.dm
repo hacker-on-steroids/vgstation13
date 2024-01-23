@@ -165,7 +165,7 @@ var/station_bonus = 0 //A bonus to station allowance that gets reset after wage 
 		account.transaction_log.Add(src)
 		// Automatically ignore sending any zero sum transactions, plus variable to skip the search.
 		if(account.account_number && send2PDAs && amount)
-			for(var/obj/item/device/flashlight/pda/PDA in PDAs)
+			for(var/obj/item/device/pda/PDA in PDAs)
 				// Only works and does this if ID is in PDA
 				if(PDA.id)
 					var/datum/pda_app/balance_check/app = locate(/datum/pda_app/balance_check) in PDA.applications
@@ -206,6 +206,8 @@ var/station_bonus = 0 //A bonus to station allowance that gets reset after wage 
 /obj/machinery/account_database/New(loc)
 	..(loc)
 
+	update_moody_light('icons/lighting/moody_lights.dmi', "overlay_account")
+
 	if(!station_account)
 		create_station_account()
 
@@ -213,7 +215,7 @@ var/station_bonus = 0 //A bonus to station allowance that gets reset after wage 
 		for(var/department in station_departments)
 			create_department_account(department, receives_wage = 1)
 	if(!vendor_account)
-		vendor_account = create_account("Vendor", 0, null, 0, 1, TRUE, FALSE)
+		vendor_account = create_account("Vendor", 0, null, 0, 1, 0, TRUE, FALSE)
 
 	if(!current_date_string)
 		current_date_string = "[time2text(world.timeofday, "DD")] [time2text(world.timeofday, "Month")], [game_year]"

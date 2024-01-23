@@ -139,7 +139,6 @@
 	if(target)
 		var/obj/item/I = target
 		I.attack_self(owner)
-		owner.delayNextAttack(1)
 	return TRUE
 
 /datum/action/item_action/ApplyIcon(obj/abstract/screen/movable/action_button/current_button)
@@ -180,13 +179,6 @@
 
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
-
-/datum/action/item_action/toggle_light/Trigger()
-	if (isPDA(target))
-		var/obj/item/device/flashlight/pda/P = target
-		P.update_brightness()
-	else
-		return ..()
 
 /datum/action/item_action/toggle_anon
 	name = "Toggle Anonymity"
@@ -252,3 +244,21 @@
 		R.toggle_light(owner)
 		return TRUE
 	return FALSE
+
+/datum/action/item_action/toggle_meson_scanner //Only used for the CE contacts, so it's named separately
+	name = "Toggle meson scanner"
+	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon_state = "meson"
+
+/datum/action/item_action/alt/Trigger()
+	if(!IsAvailable())
+		return FALSE
+	if(target)
+		var/obj/item/I = target
+		I.AltClick(owner)
+	return TRUE
+
+/datum/action/item_action/alt/toggle_material_scanner
+	name = "Toggle material scanner"
+	icon_icon = 'icons/obj/clothing/glasses.dmi'
+	button_icon_state = "material"

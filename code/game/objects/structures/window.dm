@@ -163,6 +163,42 @@ var/list/one_way_windows
 	health -= amount
 	return TRUE
 
+/obj/structure/window/silicate_act(var/obj/item/device/silicate_sprayer/S, var/mob/user)
+	if(!S.get_amount())
+		to_chat(user, "<span class='notice'>\The [S] is out of silicate!</span>")
+		return 1
+	var/mode = MODE_REPAIR
+	if(istype(S,/obj/item/device/silicate_sprayer/advanced))
+		var/obj/item/device/silicate_sprayer/advanced/SA = S
+		mode = SA.mode
+
+	var/diff = initial(health) - health
+	if(!diff && (mode == MODE_REPAIR)) // Not damaged.
+		to_chat(user, "<span class='notice'>\The [src] is already in perfect condition!</span>")
+		return 1
+
+	if(diff > 0)
+		diff = min(diff, S.get_amount() / SILICATE_PER_DAMAGE)
+
+		health += diff
+		healthcheck(user, FALSE)
+
+		user.visible_message("<span class='notice'>[user] repairs \the [src] with their [S]!</span>", "<span class='notice'>You repair \the [src] with your [S].</span>")
+
+	else // No diff, but we didn't exit earlier, so mode must be reinforce
+		var/extra_health = health - initial(health)
+		if(health >= initial(health) * MAX_WINDOW_HEALTH_MULTIPLIER)
+			to_chat(user, "<span class='notice'>You can't reinforce \the [src] any further!</span>")
+			return 1
+		diff = min(S.get_amount() / SILICATE_PER_REINFORCE, (initial(health) * MAX_WINDOW_HEALTH_MULTIPLIER) - (initial(health) + extra_health))
+		health += diff
+		healthcheck(user)
+		user.visible_message("<span class='notice'>[user] reinforced \the [src] with their [S]!</span>", "<span class='notice'>You reinforce \the [src] with your [S].</span>")
+
+	playsound(src, 'sound/effects/refill.ogg', 10, 1, -6)
+	S.remove_silicate(diff * SILICATE_PER_DAMAGE)
+	return 1
+
 /obj/structure/window/bullet_act(var/obj/item/projectile/Proj)
 
 	adjustHealthLoss(Proj.damage,Proj)
@@ -629,20 +665,7 @@ var/list/one_way_windows
 	. = ..()
 	update_nearby_tiles()
 
-//This proc is used to update the icons of nearby windows. It should not be confused with update_nearby_tiles(), which is an atmos proc!
-/obj/structure/window/proc/update_nearby_icons(var/turf/T)
-	if(!loc)
-		return 0
-	if(!T)
-		T = get_turf(src)
-
-	update_icon()
-
-	for(var/direction in cardinal)
-		for(var/obj/structure/window/W in get_step(T,direction))
-			W.update_icon()
-
-/obj/structure/window/forceMove(atom/NewLoc, Dir = 0, step_x = 0, step_y = 0, glide_size_override = 0, from_tp = 0)
+/obj/structure/window/forceMove(atom/destination, step_x = 0, step_y = 0, no_tp = FALSE, harderforce = FALSE, glide_size_override = 0)
 	var/turf/T = loc
 	relativewall()
 	relativewall_neighbours()

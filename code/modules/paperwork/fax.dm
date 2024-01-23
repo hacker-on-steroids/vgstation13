@@ -55,6 +55,7 @@ var/list/alldepartments = list("Central Command", "Nanotrasen HR")
 
 /obj/machinery/faxmachine/verb/remove_id()
 	set name = "Remove ID from the fax machine"
+	set category = "Object"
 	set src in view(1)
 	if(scan && ishuman(usr))
 		usr.put_in_hands(scan)
@@ -62,6 +63,7 @@ var/list/alldepartments = list("Central Command", "Nanotrasen HR")
 
 /obj/machinery/faxmachine/verb/remove_paper()
 	set name = "Remove fax material from the fax machine"
+	set category = "Object"
 	set src in view(1)
 	if(tofax && ishuman(usr))
 		usr.put_in_hands(tofax)
@@ -299,7 +301,7 @@ var/list/alldepartments = list("Central Command", "Nanotrasen HR")
 
 				faxed = P //doesn't return here in case there's multiple faxes in the department
 	if(centcomm)
-		for(var/obj/item/device/flashlight/pda/pingme in PDAs)
+		for(var/obj/item/device/pda/pingme in PDAs)
 			if(pingme.cartridge && pingme.cartridge.fax_pings)
 				playsound(pingme, "sound/effects/kirakrik.ogg", 50, 1)
 				pingme.visible_message("[bicon(pingme)] *Fax Received*")

@@ -312,7 +312,7 @@ var/datum/subsystem/supply_shuttle/SSsupply_shuttle
 			continue
 		var/contcount
 		for(var/atom/A in T.contents)
-			if(islightingoverlay(A))
+			if(islightingoverlay(A) || istype(A, /obj/machinery/conveyor))
 				continue
 			contcount++
 		if(contcount)
@@ -373,6 +373,7 @@ var/datum/subsystem/supply_shuttle/SSsupply_shuttle
 			var/atom/B2 = new typepath(A)
 			if(SP.amount && B2:amount)
 				B2:amount = SP.amount
+			B2.on_vending_machine_spawn()
 			slip.info += "<li>[B2.name]</li>" //add the item to the manifest
 
 		SP.post_creation(A)

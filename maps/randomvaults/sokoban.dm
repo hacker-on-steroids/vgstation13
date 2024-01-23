@@ -3,6 +3,7 @@
 /datum/map_element/vault/sokoban
 	name = "Sokoban"
 	file_path = "maps/randomvaults/sokoban_entrance.dmm"
+	spawn_cost = 3
 
 	var/list/available_levels = list(
 	"maps/randomvaults/dungeons/sokoban/A.dmm",
@@ -168,12 +169,12 @@ This ladder stuff looks confusing, so here's an illustration!!!
 
 //Entrance vault
 /area/vault/sokoban
-	has_white_turf_lighting = TRUE
+	dynamic_lighting = TRUE
 	mysterious = TRUE
 
 //Other levels
 /area/vault/sokoban/level
-	has_white_turf_lighting = FALSE //No lighting + transparent walls to make it less confusing
+	dynamic_lighting = FALSE //No lighting + transparent walls to make it less confusing
 	mysterious = FALSE
 
 //Crate

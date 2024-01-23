@@ -30,7 +30,7 @@ var/area/space_area
 	if(isspace(src))	// override defaults for space. TODO: make space areas of type /area/space rather than /area
 		requires_power = 1
 		always_unpowered = 1
-		has_white_turf_lighting = 1
+		dynamic_lighting = 0
 		power_light = 0
 		power_equip = 0
 		power_environ = 0
@@ -48,8 +48,6 @@ var/area/space_area
 		power_environ = 1
 
 	..()
-
-	update_white_turf_lighting()
 
 //	spawn(15)
 	power_change()		// all machines set to current power level, also updates lighting icon
@@ -126,6 +124,8 @@ var/area/space_area
 						a.cancelAlarm("Power", src, source)
 					else
 						a.triggerAlarm("Power", src, cameras, source)
+			for (var/obj/item/device/pager/P in pager_list)
+				P.triggerAlarm("Power", src)
 	return
 
 /area/proc/send_poweralert(var/obj/machinery/computer/station_alert/a)//sending alerts to newly built Station Alert Computers.
@@ -166,6 +166,8 @@ var/area/space_area
 			for(var/obj/machinery/computer/station_alert/a in machines)
 				if(src in (a.covered_areas))
 					a.triggerAlarm("Atmosphere", src, cameras, src)
+			for (var/obj/item/device/pager/P in pager_list)
+				P.triggerAlarm("Atmosphere", src)
 			door_alerts |= DOORALERT_ATMOS
 			UpdateFirelocks()
 		// Dropping from danger level 2.
@@ -255,6 +257,8 @@ var/area/space_area
 		for (var/obj/machinery/computer/station_alert/a in machines)
 			if(src in (a.covered_areas))
 				a.triggerAlarm("Fire", src, cameras, src)
+		for (var/obj/item/device/pager/P in pager_list)
+			P.triggerAlarm("Fire", src)
 
 /area/proc/send_firealert(var/obj/machinery/computer/station_alert/a)//sending alerts to newly built Station Alert Computers.
 	if(fire)
@@ -661,7 +665,7 @@ var/list/moved_landmarks = list(latejoin, wizardstart) //Landmarks that are move
 
 //					var/area/AR = X.loc
 
-//					if(AR.has_white_turf_lighting)							//TODO: rewrite this code so it's not messed by lighting ~Carn
+//					if(AR.dynamic_lighting)							//TODO: rewrite this code so it's not messed by lighting ~Carn
 //						X.opacity = !X.opacity
 //						X.SetOpacity(!X.opacity)
 

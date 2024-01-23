@@ -47,7 +47,6 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 	cam_plane_masters = list()
 	var/static/list/darkness_plane_things = list(
 		/obj/abstract/screen/plane/master,
-		/obj/abstract/screen/backdrop,
 		/obj/abstract/screen/plane/dark
 	)
 	for(var/plane in subtypesof(/obj/abstract/screen/plane_master) + darkness_plane_things)
@@ -217,6 +216,10 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 	pass_flags = PASSTABLE
 	light_color = null
 
+/obj/machinery/computer/security/telescreen/New()
+	..()
+	update_icon()
+
 /obj/machinery/computer/security/telescreen/examine(mob/user)
 	..()
 	if(active_camera?.c_tag)
@@ -226,7 +229,9 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 	icon_state = initial(icon_state)
 	if(stat & BROKEN)
 		icon_state += "b"
-	return
+		kill_moody_light()
+	else
+		update_moody_light('icons/lighting/moody_lights.dmi', "overlay_telescreen")
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"
@@ -236,12 +241,16 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 	network = list(CAMERANET_THUNDER, CAMERANET_COURTROOM, CAMERANET_SPESSTV)
 	density = 0
 	circuit = null
-	moody_light_type = /atom/movable/light/moody/statusdisplay
-	lighting_flags = FOLLOW_PIXEL_OFFSET
-	light_color = "#ffffff"
-	light_power = 1
-	light_range_on = 0
-	light_range = 1
+
+	light_color = null
+
+/obj/machinery/computer/security/telescreen/entertainment/update_icon()
+	icon_state = initial(icon_state)
+	if(stat & BROKEN)
+		icon_state += "b"
+		kill_moody_light()
+	else
+		update_moody_light('icons/lighting/moody_lights.dmi', "overlay_entertainment")
 
 /obj/machinery/computer/security/telescreen/entertainment/spesstv
 	name = "low-latency Spess.TV CRT monitor"
@@ -251,7 +260,10 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 	network = list(CAMERANET_SPESSTV)
 	density = TRUE
 	tgui_interface = "SpessTVCameraConsole"
-	moody_light_type = null
+
+/obj/machinery/computer/security/telescreen/entertainment/spesstv/New()
+	..()
+	update_moody_light('icons/lighting/moody_lights.dmi', "overlay_crt")
 
 /obj/machinery/computer/security/telescreen/entertainment/spesstv/ui_act(action, list/params)
 	. = ..()
@@ -289,15 +301,18 @@ var/list/obj/machinery/camera/cyborg_cams = list(
 /obj/machinery/computer/security/telescreen/entertainment/spesstv/flatscreen/New()
 	..()
 	overlays += "spesstv_overlay"
+	update_moody_light('icons/lighting/moody_lights.dmi', "overlay_telescreen")
 
 /obj/machinery/computer/security/telescreen/entertainment/wooden_tv
 	icon_state = "security_det"
+	moody_state = "overlay_security_det"
 	icon = 'icons/obj/computer.dmi'
 
 /obj/machinery/computer/security/wooden_tv
 	name = "Security Cameras"
 	desc = "An old TV hooked into the stations camera network."
 	icon_state = "security_det"
+	moody_state = "overlay_security_det"
 	circuit = /obj/item/weapon/circuitboard/security/wooden_tv
 	light_color = null
 	pass_flags = PASSTABLE

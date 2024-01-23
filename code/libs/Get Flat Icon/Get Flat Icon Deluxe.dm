@@ -84,7 +84,7 @@ cons:
 			//making sure that our icon can turn
 			var/dir = data[GFI_DX_DIR]
 			if (dir != SOUTH) // south-facing atoms shouldn't pose any problem
-				var/icon_directions = get_icon_dir_count(data[GFI_DX_ICON],data[3])
+				var/icon_directions = get_icon_dir_count(data[GFI_DX_ICON], data[GFI_DX_STATE])
 				if (icon_directions == 1)
 					data[GFI_DX_DIR] = SOUTH // if the icon has only one direction we HAVE to face south
 				else if (icon_directions == 4)
@@ -220,7 +220,7 @@ cons:
 	var/list/turf_image_datas = list()
 	turf_image_datas = get_content_image_datas(T)
 	for(var/atom/A in T.contents)
-		if (istype(A, /atom/movable/light))
+		if (istype(A, /atom/movable/lighting_overlay))
 			continue
 		if (camera)
 			A.photography_act(camera)

@@ -152,8 +152,8 @@
 	//ID
 	if(wear_id)
 		/*var/id
-		if(istype(wear_id, /obj/item/device/flashlight/pda))
-			var/obj/item/device/flashlight/pda/pda = wear_id
+		if(istype(wear_id, /obj/item/device/pda))
+			var/obj/item/device/pda/pda = wear_id
 			id = pda.owner
 		else if(istype(wear_id, /obj/item/weapon/card/id)) //just in case something other than a PDA/ID card somehow gets in the ID slot :[
 			var/obj/item/weapon/card/id/idcard = wear_id
@@ -458,13 +458,16 @@
 		if(user.hasHUD(HUD_MEDICAL))
 			var/perpname = get_identification_name(get_face_name())
 			var/medical = "None"
+			var/medicalsanity = "None"
 
 			var/datum/data/record/gen_record = data_core.find_general_record_by_name(perpname)
 			if(gen_record)
 				msg += {"<span class = 'deptradio'><b><u>Medical Data</u></b></span>\n"}
 				medical = gen_record.fields["p_stat"]
+				medicalsanity = gen_record.fields["m_stat"]
 
 			msg += {"<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>
+				<span class = 'deptradio'>Mental status:</span> <a href='?src=\ref[src];medicalsanity=1'>\[[medicalsanity]\]</a>
 				<span class = 'deptradio'>Medical records:</span> <a href='?src=\ref[src];medrecord=`'>\[View\]</a>\n"}
 			for (var/ID in virus2)
 				if (ID in virusDB)

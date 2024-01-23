@@ -260,6 +260,26 @@
 	reagents.add_reagent(FLOUR, rand(4,10))
 	bitesize = 5
 
+/obj/item/weapon/reagent_containers/food/snacks/meat/cricket/big
+	name = "creatine cricket meat"
+	desc = "An oddly large slab of cricket meat. Tastes like nuts and protein. Very earthy and chewy."
+	icon_state = "bigroachmeat"
+
+/obj/item/weapon/reagent_containers/food/snacks/meat/cricket/big/New()
+	..()
+	reagents.add_reagent(NUTRIMENT, 5)
+	reagents.add_reagent(FLOUR, 32)
+	
+/obj/item/weapon/reagent_containers/food/snacks/meat/cricket/king
+	name = "cricket king meat"
+	desc = "A royal bloodline was felled to make this. Tastes like regicide."
+	icon_state = "bigroachmeat"
+
+/obj/item/weapon/reagent_containers/food/snacks/meat/cricket/king/New()
+	..()
+	reagents.add_reagent(NUTRIMENT, 25)
+	reagents.add_reagent(FLOUR, 75)
+
 /obj/item/weapon/reagent_containers/food/snacks/meat/mimic
 	name = "mimic meat"
 	desc = "Woah! You were eating THIS all along?"
@@ -310,8 +330,8 @@ var/global/list/valid_random_food_types = existing_typesof(/obj/item/weapon/reag
 
 	return ..()
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/mimic/forceMove(atom/NewLoc, Dir = 0, step_x = 0, step_y = 0, glide_size_override = 0, from_tp = 0)
-	if(transformed && istype(NewLoc, /obj/machinery/cooking))
+/obj/item/weapon/reagent_containers/food/snacks/meat/mimic/forceMove(atom/destination, step_x = 0, step_y = 0, no_tp = FALSE, harderforce = FALSE, glide_size_override = 0)
+	if(transformed && istype(destination, /obj/machinery/cooking))
 		revert()
 
 	return ..()

@@ -210,7 +210,7 @@
 		if (ismob(loc))
 			var/mob/M = loc
 			M.update_inv_hands()
-			
+
 /obj/item/clothing/proc/togglehood()
 	set name = "Toggle Hood"
 	set category = "Object"
@@ -314,6 +314,8 @@
 		if (do_after(user, cauldron, 30))
 			var/mixed_color = mix_color_from_reagents(cauldron.reagents.reagent_list, TRUE)
 			var/mixed_alpha = mix_alpha_from_reagents(cauldron.reagents.reagent_list)
+			if (mixed_color == "#FFFFFF")
+				mixed_color = "#FEFEFE" //null color prevention
 			if (!mixed_color)
 				var/silent = FALSE
 				for(var/datum/reagent/R in cauldron.reagents.reagent_list)
@@ -657,6 +659,7 @@
 	var/gave_out_gifts = FALSE //for snowman animation
 	var/obj/item/clothing/head/on_top = null //for stacking
 	var/stack_depth = 0
+	var/vertical_offset = 0 //enables hats to go taller that the tile's boundaries
 	var/blood_overlay_type = "hat"
 	cloth_layer = HEAD_LAYER
 	cloth_icon = 'icons/mob/head.dmi'
@@ -854,6 +857,8 @@ var/global/maxStackDepth = 10
 	cloth_icon = 'icons/mob/feet.dmi'
 	starting_materials = list(MAT_FABRIC = 1250)
 
+	var/luminous_paint = FALSE
+
 /obj/item/clothing/shoes/proc/step_action()
 	stepstaken++
 	if(step_sound != "" && ishuman(loc))
@@ -886,6 +891,7 @@ var/global/maxStackDepth = 10
 	. = ..()
 	track_blood = 0
 	blood_color = null
+	luminous_paint = FALSE
 
 /obj/item/clothing/shoes/proc/togglemagpulse(var/mob/user = usr, var/override = FALSE)
 	if(!override)

@@ -21,7 +21,7 @@
 	var/auto_make_on_detect = 0 //Default no, scan level >=2 only
 	var/global/list/datum/recipe/available_recipes // List of the recipes you can use
 	var/global/list/acceptable_items = list(
-							/obj/item/weapon/kitchen/utensil,/obj/item/device/flashlight/pda,/obj/item/device/paicard,
+							/obj/item/weapon/kitchen/utensil,/obj/item/device/pda,/obj/item/device/paicard,
 							/obj/item/weapon/cell,/obj/item/weapon/circuitboard,/obj/item/device/aicard
 							)// List of the items you can put in
 	var/global/list/acceptable_reagents // List of the reagents you can put in
@@ -383,7 +383,7 @@
 				empty()
 				explosion(get_turf(src), -1,0,0)
 				return
-			if(istype(O,/obj/item/device/flashlight/pda) || istype(O,/obj/item/device/paicard) || istype(O,/obj/item/device/aicard) || istype(O,/obj/item/weapon/circuitboard))
+			if(istype(O,/obj/item/device/pda) || istype(O,/obj/item/device/paicard) || istype(O,/obj/item/device/aicard) || istype(O,/obj/item/weapon/circuitboard))
 				src.visible_message("<span class='warning'>[O] sparks in the microwave!</span>")
 				if (!running(4))
 					abort()
@@ -395,7 +395,25 @@
 				gunk.forceMove(src.loc)
 				return
 
-		// Everything else continued from here
+		// If there's just one item and no reagents, warm it up
+		if ((contents.len == 1) && !reagents.total_volume)
+			if(!running(10))
+				abort()
+				return
+			stop()
+			cooked = contents[1]//if there's just one item and no reagents, warm it up
+			var/cook_temp = COOKTEMP_READY//100°C
+			if(emagged || arcanetampered)
+				cook_temp = COOKTEMP_EMAGGED//8.000.000°C
+				playsound(src, "sound/items/flare_on.ogg", 100, 0)
+				cooked.ignite()
+			if (cooked.reagents.chem_temp < cook_temp)
+				cooked.reagents.chem_temp = cook_temp
+				cooked.update_icon()
+			cooked.forceMove(src.loc)
+			return
+
+		// Otherwise we fucked up
 		dirty += 1
 		if (prob(max(10,dirty*5)))
 			if (!running(4))
@@ -419,18 +437,7 @@
 				abort()
 				return
 			stop()
-			if ((contents.len == 1) && !reagents.total_volume)
-				cooked = contents[1]//if there's just one item and no reagents, warm it up
-				var/cook_temp = COOKTEMP_READY//100°C
-				if(emagged || arcanetampered)
-					cook_temp = COOKTEMP_EMAGGED//8.000.000°C
-					playsound(src, "sound/items/flare_on.ogg", 100, 0)
-					cooked.ignite()
-				if (cooked.reagents.chem_temp < cook_temp)
-					cooked.reagents.chem_temp = cook_temp
-					cooked.update_icon()
-			else
-				cooked = fail()
+			cooked = fail()
 			cooked.forceMove(src.loc)
 			return
 	else

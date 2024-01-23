@@ -63,21 +63,10 @@ var/global/datum/emergency_shuttle/emergency_shuttle
 		if(always_fake_recall)
 			fake_recall = rand(300,500)
 	//turning on the red lights in hallways
-	for (var/obj/machinery/light/L in alllights)
-		if (istype(L.loc.loc, /area/hallway))
-			L.current_bulb.brightness_color = LIGHT_COLOR_APC_RED
-			L.light_color = LIGHT_COLOR_APC_RED
-			L.light_type =  LIGHT_REGULAR_FLICKER
-			if (L.light_obj)
-				L.light_obj.light_color = LIGHT_COLOR_APC_RED
-				L.light_obj.color = LIGHT_COLOR_APC_RED
-				animate(L.light_obj, alpha = 180, time = 5, loop = -1, easing = CIRCULAR_EASING)
-				animate(alpha = 255, time = 5, loop = -1, easing = CIRCULAR_EASING)
-			if (L.wall_lighting_obj)
-				L.wall_lighting_obj.light_color = LIGHT_COLOR_APC_RED
-				L.wall_lighting_obj.color = LIGHT_COLOR_APC_RED
-				animate(L.wall_lighting_obj, alpha = 180, time = 5, loop = -1, easing = CIRCULAR_EASING)
-				animate(alpha = 255, time = 5, loop = -1, easing = CIRCULAR_EASING)
+	if(alert == 0)
+		for(var/area/A in areas)
+			if(istype(A, /area/hallway))
+				A.readyalert()
 
 /datum/emergency_shuttle/proc/shuttlealert(var/X)
 	if(shutdown)
@@ -90,18 +79,6 @@ var/global/datum/emergency_shuttle/emergency_shuttle
 		return
 	if(!can_recall)
 		return
-
-	//turning on the white lights in hallways
-	for (var/obj/machinery/light/L in alllights)
-		if (istype(L.loc.loc, /area/hallway))
-			L.current_bulb.brightness_color = initial(L.current_bulb.brightness_color)
-			L.light_color = initial(L.light_color)
-			L.light_type =  initial(L.light_type)
-			if (L.light_obj)
-				animate(L.light_obj, alpha = initial(L.light_obj.alpha), time = 5, flags = ANIMATION_END_NOW)
-				L.light_obj.light_color = initial(L.light_color)
-				L.light_obj.color = initial(L.current_bulb.brightness_color)
-
 	if(direction == 1)
 		var/timeleft = timeleft()
 		if(alert == 0)
@@ -137,6 +114,12 @@ var/global/datum/emergency_shuttle/emergency_shuttle
 /datum/emergency_shuttle/proc/settimeleft(var/delay)
 	endtime = world.time + delay * 10
 	timelimit = delay
+
+/datum/emergency_shuttle/proc/get_shuttle_timer()
+	var/shuttle_time_left = timeleft()
+	if(shuttle_time_left)
+		return "[add_zero(num2text((shuttle_time_left / 60) % 60),2)]:[add_zero(num2text(shuttle_time_left % 60), 2)]"
+	return ""
 
 // sets the shuttle direction
 // 1 = towards SS13, -1 = back to centcom

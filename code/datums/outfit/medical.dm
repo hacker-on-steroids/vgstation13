@@ -55,7 +55,7 @@
 		/obj/item/weapon/implant/loyalty/,
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/heads/cmo
+	pda_type = /obj/item/device/pda/heads/cmo
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/cmo
 
@@ -146,7 +146,7 @@
 		)
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/medical
+	pda_type = /obj/item/device/pda/medical
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 
@@ -221,7 +221,7 @@
 		)
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/chemist
+	pda_type = /obj/item/device/pda/chemist
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 
@@ -259,7 +259,10 @@
 				 "Brig Medic" = /obj/item/clothing/under/rank/medical/brigmedic,
 			),
 			slot_shoes_str = /obj/item/clothing/shoes/black,
-			slot_glasses_str = /obj/item/clothing/glasses/hud/health,
+			slot_glasses_str = list(
+				"Paramedic" = /obj/item/clothing/glasses/hud/health,
+				"Brig Medic" = /obj/item/clothing/glasses/hud/combinedsecmed
+			),
 			slot_wear_suit_str = list(
 				"Paramedic" = /obj/item/clothing/suit/storage/paramedic,
 				"Brig Medic" = /obj/item/clothing/suit/armor/vest/security/medic
@@ -279,7 +282,10 @@
 				 "Brig Medic" = /obj/item/clothing/under/rank/medical/brigmedic,
 			),
 			slot_shoes_str = /obj/item/clothing/shoes/black,
-			slot_glasses_str = /obj/item/clothing/glasses/hud/health,
+			slot_glasses_str = list(
+				"Paramedic" = /obj/item/clothing/glasses/hud/health,
+				"Brig Medic" = /obj/item/clothing/glasses/hud/combinedsecmed
+			),
 			slot_wear_suit_str = /obj/item/clothing/suit/space/plasmaman/medical/paramedic,
 			slot_head_str = /obj/item/clothing/head/helmet/space/plasmaman/medical/paramedic,
 			slot_l_store_str = /obj/item/weapon/reagent_containers/hypospray/autoinjector/biofoam_injector,
@@ -295,7 +301,10 @@
 				 "Brig Medic" = /obj/item/clothing/under/rank/medical/brigmedic,
 			),
 			slot_shoes_str = /obj/item/clothing/shoes/black,
-			slot_glasses_str = /obj/item/clothing/glasses/hud/health,
+			slot_glasses_str = list(
+				"Paramedic" = /obj/item/clothing/glasses/hud/health,
+				"Brig Medic" = /obj/item/clothing/glasses/hud/combinedsecmed
+			),
 			slot_wear_suit_str = /obj/item/clothing/suit/space/vox/civ/medical/paramedic,
 			slot_head_str = /obj/item/clothing/head/helmet/space/vox/civ/medical/paramedic,
 			slot_l_store_str = /obj/item/weapon/reagent_containers/hypospray/autoinjector/biofoam_injector,
@@ -330,7 +339,7 @@
 		)
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/medical
+	pda_type = /obj/item/device/pda/medical
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 
@@ -394,7 +403,7 @@
 		),
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/medical
+	pda_type = /obj/item/device/pda/medical
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 
@@ -484,7 +493,7 @@
 		)
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/geneticist
+	pda_type = /obj/item/device/pda/geneticist
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 
@@ -551,7 +560,7 @@
 		)
 	)
 
-	pda_type = /obj/item/device/flashlight/pda/viro
+	pda_type = /obj/item/device/pda/viro
 	pda_slot = slot_belt
 	id_type = /obj/item/weapon/card/id/medical
 

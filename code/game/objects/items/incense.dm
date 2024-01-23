@@ -130,7 +130,7 @@
 
 /obj/item/incense_stick/afterattack(var/obj/reagentholder, var/mob/user)
 	..()
-	if(reagentholder.is_open_container() && !ismob(reagentholder) && reagentholder.reagents)
+	if(reagentholder.is_open_container() && reagentholder.reagents)
 		if(reagentholder.reagents.has_reagent(WATER) && lit)
 			to_chat(user, "<span class='warning'>\The [src] fizzles as you dip it into \the [reagentholder].</span>")
 			exting()
@@ -146,7 +146,7 @@
 	breathed_at_least_once.Cut()
 	attack_verb = unlit_attack_verb
 	update_icon()
-	kill_light()
+	set_light(0)
 	if (istype(loc,/obj/item/weapon/thurible))
 		var/obj/item/weapon/thurible/T = loc
 		T.update_icon()
