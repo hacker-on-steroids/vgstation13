@@ -52,7 +52,7 @@ Attach to transfer valve and open. BOOM.
 	var/turf/T = get_turf(loc)
 	if(T)
 		T.hotspot_expose(autoignition_temperature, CELL_VOLUME, surfaces=1)
-	if(prob(10)) //10% chance of smoke creation per tick
+	if(prob(8)) //8% chance of smoke creation per tick
 		var/datum/effect/system/smoke_spread/fire/smoke = new /datum/effect/system/smoke_spread()
 		smoke.set_up(4,0,T)
 		smoke.time_to_live = 60 SECONDS
@@ -86,10 +86,11 @@ Attach to transfer valve and open. BOOM.
 	qdel(src)
 
 /atom/proc/extinguish()
-	on_fire=0
-	if(fire_overlay)
-		overlays -= fire_overlay
-	QDEL_NULL(firelightdummy)
+	if (on_fire)
+		on_fire=0
+		if(fire_overlay)
+			overlays -= fire_overlay
+		QDEL_NULL(firelightdummy)
 
 /atom/proc/ignite(var/temperature)
 	on_fire=1
