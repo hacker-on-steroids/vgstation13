@@ -73,6 +73,81 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 		*** DO NOT FUCK WITH THIS FILE OR YOU WILL CAUSE MERGE CONFLICTS. ***
 		-->
 		<div class="commit sansserif">
+			<h2 class="date">2024.03.06</h2>
+			<h3 class="author">13spacemen updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Tail amputation is done with hemostat + saw, tail attachment with retractor + tail</li>
+			</ul>
+			<h3 class="author">CrazyAmphibian updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">the RPD will now show buttons for toggling autowrench and multilayer when relevant</li>
+				<li class="rscadd">the RPD&#39;s pipe layer selectors will indicate if autowrench or multilayer is enabled</li>
+				<li class="bugfix">the RPD will no longer change the current layer when multilayer is disabled</li>
+			</ul>
+			<h3 class="author">DrSnips updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Suit modification stations now actually replace the suit for alien species (vox and plasmamen) rather than applying a &#34;paint job&#34;</li>
+			</ul>
+			<h3 class="author">Eneocho updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can make sugar or salt cubes by microwaving 10u sugar/corn syrup or salt respectively.</li>
+			</ul>
+			<h2 class="date">2024.03.05</h2>
+			<h3 class="author">13spacemen updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Skeleton suit will hide tails</li>
+				<li class="bugfix">Tails will show on suits (except those with HIDETAIL)</li>
+				<li class="bugfix">Skeleton suit will hide hair and facial hair</li>
+			</ul>
+			<h3 class="author">boy2mantwicethefam updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Castle Station now allows silicons to be constructed again.</li>
+			</ul>
+			<h3 class="author">hacker-on-steroids updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">gift wrappers no longer delete people if used on a beartrap</li>
+				<li class="tweak">deployed bodybags can no longer be recycled</li>
+			</ul>
+			<h3 class="author">nervere updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Splashing imidazoline into someone&#39;s eyes (such as from a beaker) will now also cure their eye damage.</li>
+				<li class="bugfix">Fixed imidazoline in droppers not properly curing blindness.</li>
+				<li class="bugfix">Fixed the admin/attack logs for droppers not properly displaying reagents.</li>
+				<li class="bugfix">Being turned into a statue and then getting staff of animation&#39;d will no longer mute you forever.</li>
+			</ul>
+			<h2 class="date">2024.03.02</h2>
+			<h3 class="author">Eneocho updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">You can now make B.A.B.Y.P.A.C.M.A.N engines and P.R.O.F.E.S.S.O.R.P.A.C.M.A.N engines, consuming Bananium and Phazon respectively.</li>
+			</ul>
+			<h3 class="author">KingofHONK updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added new sound file to effects (delamination.ogg).</li>
+				<li class="rscdel">Removed nothing. Explosion sounds up close will still be roughly the same.</li>
+			</ul>
+			<h3 class="author">boy2mantwicethefam updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">The Nuclear Operative shuttle on Castle Station is now the same as on other maps.</li>
+				<li class="bugfix">Fixed an oversight that caused midround Dynamic rulesets that asked ghosts to participate to fire less times than intended.</li>
+				<li class="tweak">Preference settings will no longer have an effect on what ghost-playable roles may appear during a round.</li>
+				<li class="tweak">Traitors, wizards and space ninjas from freshly-arrived crewmembers now respect the same checks that midround traitors, wizards and ninjas do. As a consequence, this makes them (except for the wizard) significantly rarer.</li>
+				<li class="rscadd">The Changeling&#39;s armblade now has a powerful spin attack! Keep your distance!</li>
+				<li class="tweak">Midround rulesets will now roll more often.</li>
+				<li class="tweak">Darkness vision changes such as from mesons will now apply instantly instead of gradually fading in or out.</li>
+			</ul>
+			<h3 class="author">hacker-on-steroids updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">landline cord stretching</li>
+			</ul>
+			<h3 class="author">nervere updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Vampire thrall deconversion text is now far more noticeable and clear as to what happened.</li>
+				<li class="rscadd">Inacusiate now cures ear damage-induced deafness with a single unit.</li>
+				<li class="rscadd">Imidazoline now cures eye damage-induced blindness with a single unit when administered to the eyes via dropper.</li>
+				<li class="tweak">Ryetalyn no longer cures damage-induced blindness and deafness. Genetic blindness and deafness is, of course, still cured.</li>
+				<li class="rscadd">Goonecode now has a tech origin and can be put in the destructive analyzer.</li>
+				<li class="experiment">Active attack delays will no longer prevent you from storing/retrieving items from inventories, or picking up new items.</li>
+			</ul>
 			<h2 class="date">2024.03.01</h2>
 			<h3 class="author">Eneocho updated:</h3>
 			<ul class="changes bgimages16">
@@ -94,6 +169,10 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 				<li class="bugfix">Fixed a bug where it was impossible to buy Fireball after buying Fire Breath. Fire Breath is now its own independent spell, and the way the spellbook searches for known spells in a player&#39;s mind has been changed to fix the edge-case bug where buying a sub-type of a spell would prevent that spell from being purchased.</li>
 				<li class="bugfix">Targeting someone directly with Pacify will now cast the spell at their location.</li>
 				<li class="bugfix">Pacify can no longer be targeted at tiles that are not in the player&#39;s view. No, you can&#39;t use mesons to do it either, but you can use the Scrying Orb.</li>
+			</ul>
+			<h3 class="author">nervere updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Several hundred unconnected vents and scrubbers across ALL stations have been fixed, courteous of a new debugging verb.</li>
 			</ul>
 			<h3 class="author">west3436 updated:</h3>
 			<ul class="changes bgimages16">
@@ -2108,58 +2187,6 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 			<h3 class="author">Kurfursten updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="bugfix">Fixed a bug where making multiple of an item in a biogenerator would permanently inflate its cost.</li>
-			</ul>
-			<h2 class="date">2023.02.10</h2>
-			<h3 class="author">DeityLink updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Vox Mannequins have their hair now show up properly.</li>
-				<li class="rscadd">Body Scanners now also indicate DNA and fingerprint hashes.</li>
-				<li class="rscadd">New, non-Agent, ID cards can now have their biometric data set when used on a Body Scanner with a human occupant. Biometric data cannot be modified once imprinted (only Agent ID Cards can do that, as they always did, on their own)</li>
-			</ul>
-			<h3 class="author">Eneocho updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Gym Rats, Pompadour Rats and Roid Rats become bigger when bulking, maxing out at 2x their original size at max bulk. When exposed to soymilk, which reduces their bulk, they go smaller accordingly. They can&#39;t go smaller than their original size.</li>
-				<li class="tweak">Extends the child cap for cockroaches to 100, from 50.</li>
-			</ul>
-			<h3 class="author">Hinaichigo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Grues can Shadow Shunt, allowing them to warp their way through the darkness.</li>
-			</ul>
-			<h3 class="author">SECBATON-GRIFFON updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Killer tomatoes now actually... kill, when provoked by anyone other than their harvester.</li>
-				<li class="rscadd">Killer tomato killing power is now decided by potency.</li>
-				<li class="tweak">Killer tomatoes now dislike plant-b-gone.</li>
-				<li class="rscadd">Friday the 13th is now a very unlucky day.</li>
-				<li class="rscadd">Players dropping an item from body pain now gives them a chat message showing it.</li>
-				<li class="rscadd">Snaxi and snowbox nukeops now have thematic snowmobiles.</li>
-				<li class="bugfix">Cyber trophy belts now hold items they&#39;re meant to.</li>
-			</ul>
-			<h3 class="author">gurfan updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Syndicate space suits can now hold nitrogen tanks.</li>
-				<li class="imageadd">Added new blood overlay sprites for Vox + some Insectoid body parts.</li>
-			</ul>
-			<h3 class="author">twirling-jesters updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed space lube not increasing power output for TEG circulators properly.</li>
-				<li class="tweak">TEG circulators now hold 100 units instead of 25.</li>
-				<li class="rscadd">Added lucky coins.</li>
-				<li class="rscadd">Added plant molecules and reworked Biogenerator to require certain molecules to create certain items.</li>
-			</ul>
-			<h3 class="author">west3436 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Investigation Glasses can now be found in the Detective Gear box, allowing detectives to track eye movements.</li>
-			</ul>
-			<h2 class="date">2023.02.04</h2>
-			<h3 class="author">gurfan updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="experiment">Added a Hub panel that allows admins to configure BYOND hub related settings.</li>
-			</ul>
-			<h2 class="date">2023.01.26</h2>
-			<h3 class="author">DeityLink updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Pre-mapped Chill Bug packets now properly spawn chill bugs from apiaries instead of regular bees.</li>
 			</ul>
 		</div>
 		<!--
