@@ -123,15 +123,15 @@
 			G.overlays = 0
 			if(istype(G.mind.current, /mob/living/carbon/human/))
 				var/mob/living/carbon/human/H = G.mind.current
-				G.overlays += H.obj_overlays[ID_LAYER]
-				G.overlays += H.obj_overlays[EARS_LAYER]
-				G.overlays += H.obj_overlays[SUIT_LAYER]
-				G.overlays += H.obj_overlays[GLASSES_LAYER]
-				G.overlays += H.obj_overlays[GLASSES_OVER_HAIR_LAYER]
-				G.overlays += H.obj_overlays[BELT_LAYER]
-				G.overlays += H.obj_overlays[BACK_LAYER]
-				G.overlays += H.obj_overlays[HEAD_LAYER]
-				G.overlays += H.obj_overlays[HANDCUFF_LAYER]
+				G.overlays += H.overlays_standing[ID_LAYER]
+				G.overlays += H.overlays_standing[EARS_LAYER]
+				G.overlays += H.overlays_standing[SUIT_LAYER]
+				G.overlays += H.overlays_standing[GLASSES_LAYER]
+				G.overlays += H.overlays_standing[GLASSES_OVER_HAIR_LAYER]
+				G.overlays += H.overlays_standing[BELT_LAYER]
+				G.overlays += H.overlays_standing[BACK_LAYER]
+				G.overlays += H.overlays_standing[HEAD_LAYER]
+				G.overlays += H.overlays_standing[HANDCUFF_LAYER]
 			G.invisibility = 0
 			to_chat(G, "<span class='sinister'>You feel relieved as what's left of your soul finally escapes its prison of flesh.</span>")
 		spawn(1)
@@ -749,13 +749,6 @@ Thanks.
 	if(T != loc)
 		handle_hookchain(Dir)
 
-	if(client && client.eye && istype(client.eye,/turf/simulated/wall))
-		var/turf/simulated/wall/W = client.eye
-		if (!Adjacent(W))
-			client.eye = src
-			client.perspective = MOB_PERSPECTIVE
-			W.peeper = null
-
 	if(.)
 		for(var/obj/item/weapon/gun/G in targeted_by) //Handle moving out of the gunner's view.
 			var/mob/living/M = G.loc
@@ -1034,7 +1027,7 @@ Thanks.
 					return //closed but not welded...
 
 		//okay, so the closet is either welded or locked... resist!!!
-		L.visible_message("<span class='danger'>The [C] begins to shake violenty!</span>",
+		L.visible_message("<span class='danger'>\The [C] begins to shake violenty!</span>",
 						  "<span class='warning'>You lean on the back of [C] and start pushing the door open (this will take about [breakout_time] minutes).</span>")
 		spawn(0)
 			if(do_after(usr, C, breakout_time * 60 * 10, 30, custom_checks = new /callback(C, /obj/structure/closet/proc/on_do_after))) 	//minutes * 60seconds * 10deciseconds
