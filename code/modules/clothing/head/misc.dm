@@ -222,7 +222,7 @@
 	desc = "A working man's cap."
 	icon_state = "flat_cap"
 	item_state = "detective"
-	species_fit = list(INSECT_SHAPED)
+	species_fit = list(INSECT_SHAPED, VOX_SHAPED)
 	siemens_coefficient = 0.9
 
 /obj/item/clothing/head/flatcap/linen
@@ -825,3 +825,10 @@ var/image/unusual_overlay = image('icons/mob/head.dmi', "unusual_overlay", pixel
 	desc = "It survived an explosive implant, it'll survive you."
 	flags = FPRINT
 	icon_state = "syndiefootballhelmet"
+
+/obj/item/clothing/head/trucker
+	name = "cable appreciation hat"
+	desc = "Trucker hat with \"I FUCKING LOVE CABLES\" written on the front in a large and obnoxious font."
+	flags = FPRINT
+	icon_state = "trucker"
+	item_state = "trucker"
