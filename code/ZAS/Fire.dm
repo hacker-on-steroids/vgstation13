@@ -390,7 +390,8 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 
 /atom/movable/ignite()
 	..()
-	firelightdummy = new (src)
+	if(!firelightdummy)
+		firelightdummy = new (src)
 
 /atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(flammable && !on_fire)
@@ -507,7 +508,10 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 				ignite()
 				igniting = 1
 		if(surfaces)
-			if((flammable || flammable_reagent_check()) && !on_fire)
+			if(flammable_reagent_check())
+				ignite()
+				igniting = 1
+			else if(flammable && !on_fire)
 				if(prob(exposed_volume * 100 / CELL_VOLUME))
 					ignite()
 					igniting = 1
@@ -582,11 +586,6 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 	. = ..()
 	dir = pick(cardinal)
 	var/turf/T = get_turf(loc)
-	var/i = 0
-	for(var/obj/effect/fire/F in T)
-		i++
-	if(i>1)
-		qdel(src)
 	var/datum/gas_mixture/air_contents=T.return_air()
 	if(air_contents)
 		setfirelight(air_contents.calculate_firelevel(get_turf(src)), air_contents.temperature)
@@ -600,6 +599,10 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 /obj/effect/fire/proc/Extinguish()
 	for(var/atom/A in loc)
 		A.extinguish()
+	qdel(src)
+
+/obj/effect/fire/extinguish() //lol
+	QDEL_NULL(firelightdummy)
 	qdel(src)
 
 /obj/effect/fire/process()
@@ -646,7 +649,7 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 	for(var/mob/living/carbon/human/M in loc)
 		if(M.mutations.Find(M_UNBURNABLE))
 			continue
-		M.FireBurn(firelevel, air_contents.temperature, air_contents.return_pressure())
+		M.FireBurn(firelevel, FLAME_TEMPERATURE_PLASTIC, air_contents.return_pressure())
 
 	//Burn items in the turf.
 	for(var/atom/A in loc)
@@ -901,7 +904,7 @@ var/ZAS_fuel_energy_release_rate = zas_settings.Get(/datum/ZAS_Setting/fire_fuel
 				arms_exposure = 0
 
 	//minimize this for low-pressure enviroments
-	var/mx = 5 * firelevel/ZAS_firelevel_multiplier * min(pressure / ONE_ATMOSPHERE, 1)
+	var/mx = 5 * max(firelevel,1.5)/ZAS_firelevel_multiplier * min(pressure / ONE_ATMOSPHERE, 1)
 
 	//Always check these damage procs first if fire damage isn't working. They're probably what's wrong.
 	var/fire_tile_modifier = 4 //multiplier for damage received while standing on a fire tile
