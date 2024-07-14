@@ -1,9 +1,12 @@
 name: Compile changelogs
 
 on:
-  schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+  repository_dispatch:
+    types: [trigger-compile-changelog]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   CompileCL:
@@ -27,8 +30,10 @@ jobs:
         run: |
           git config --local user.email "misterserver123@gmail.com"
           git config --local user.name "D3athrow-Issues"
-          git pull origin Bleeding-Edge
-          git commit -m "Automatic changelog compile [ci skip]" -a || true
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Automatic changelog compile [ci skip]" -a || true
+          fi
+          git pull origin Bleeding-Edge --rebase
       - name: Push
         uses: CasperWA/push-protected@v2
         with:
