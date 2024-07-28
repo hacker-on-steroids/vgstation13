@@ -73,6 +73,16 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 		*** DO NOT FUCK WITH THIS FILE OR YOU WILL CAUSE MERGE CONFLICTS. ***
 		-->
 		<div class="commit sansserif">
+			<h2 class="date">2024.07.25</h2>
+			<h3 class="author">Eneocho updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Wizards can upgrade the Pitbull spell to summon Toadline Pitbulls for 20 spell points. Toadline Pitbulls move slightly slower than a regular pitbull, but have the advantage of being able to pass through airlocks and other mobs unimpeded (the airlock pass is NOT instantaneous, it takes a bit). They also do 1 more Brute damage on average compared to a regular Pitbull.</li>
+				<li class="rscadd">Restores the Tracking Bacon dish that was commented out 12 years ago. They behave like regular tracking beacons, but can be eaten and can be cooked with 10u corn oil, 5u salt and a slab of meat.</li>
+			</ul>
+			<h3 class="author">boy2mantwicethefam updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">The ninja&#39;s energy blade is now slightly sharper.</li>
+			</ul>
 			<h2 class="date">2024.07.23</h2>
 			<h3 class="author">Eneocho updated:</h3>
 			<ul class="changes bgimages16">
@@ -100,6 +110,10 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 				<li class="bugfix">Fixed a 4-months-old bug where cyber horrors couldn&#39;t inject medical nanobots.</li>
 				<li class="bugfix">The &#34;Set Holiday&#34; admin command will now show up to admins in their command panel.</li>
 				<li class="bugfix">Fixed a 7-year-old bug where peg limbs couldn&#39;t be properly removed by less damaging weapons.</li>
+				<li class="bugfix">Fixed a 7-year-old bug where non-sharp items with enough force did not have any chance of ripping off a limb as opposed to turning it into gibs. The check has now been fixed and now strong blunt melee weapons have a chance to rip off a broken limb instead of gibbing a broken limb.</li>
+				<li class="bugfix">Removed unused code which concerned attacking with slimes in order to cause brain damage, which was unused for a variety of reasons including; regular slimes cannot be picked up, the code only works with items, and it only worked against non-carbon mobs which, as far as I know, are not affected by brain damage.</li>
+				<li class="bugfix">Emotes that change their wording based on the user&#39;s gender will now properly affect non-humans such as monkeys.</li>
+				<li class="bugfix">Removed an unused proc that was getting called by the code regarding monkeys being attacked with items.</li>
 			</ul>
 			<h3 class="author">jwhitak updated:</h3>
 			<ul class="changes bgimages16">
@@ -1894,19 +1908,6 @@ ADDING CREDITS?  EDIT templates/changelog.tmpl.html
 			<ul class="changes bgimages16">
 				<li class="rscdel">Removed bad changelog entries</li>
 				<li class="bugfix">Fixed changelog?</li>
-			</ul>
-			<h2 class="date">2023.10.23</h2>
-			<h3 class="author">CrazyAmphibian updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Suit Storage Units can now be (un)secured from the floor by unwelding and unwrenching them</li>
-				<li class="rscadd">Suit Storage Units can now be created with a machine frame and their respective board (requires 2 Programming, 2 Engineering, 2 Powerstorage research)</li>
-				<li class="rscadd">Suit Storage Units can now be deconstructed if they are empty</li>
-			</ul>
-			<h3 class="author">Irradiation updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Synergy: Added a missing stamp to the Chief Engineer&#39;s office and to the Judge&#39;s desk in the courtroom.</li>
-				<li class="rscdel">Synergy: Removed a redundant keycard authenticator that was on the floor in the Chief Engineer&#39;s office.</li>
-				<li class="rscadd">Bagelstation: Added a missing power cable wire under the North Solar SMES.</li>
 			</ul>
 		</div>
 		<!--
