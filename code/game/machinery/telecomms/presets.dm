@@ -24,15 +24,23 @@
 	toggled = 0
 	autolinkers = list("r_relay")
 
-/obj/machinery/telecomms/relay/preset/centcom
-	id = "Centcom Relay"
-	hide = 1
+/obj/machinery/telecomms/relay/preset/ert
+	id = "Response Team Relay"
+	network = "centcom"
 	toggled = 1
 	//anchored = 1
 	//use_power = MACHINE_POWER_USE_NONE
 	//idle_power_usage = 0
 	heating_power = 0
-	autolinkers = list("c_relay")
+	autolinkers = list("centcom_hub")
+	freq_listening_presets = list("Response Team")
+	
+/obj/machinery/telecomms/relay/preset/deathsquad
+	id = "Deathsquad Relay"
+	network = "centcom"
+	toggled = 1
+	heating_power = 0
+	autolinkers = list("centcom_hub")
 
 //HUB
 
@@ -66,7 +74,7 @@
 
 /obj/machinery/telecomms/receiver/preset_right/initialize()
 	..()
-	freq_listening = list(RESPONSE_FREQ, COMM_FREQ, ENG_FREQ, SEC_FREQ, COMMON_FREQ, AIPRIV_FREQ) //ert, command, engineering, security
+	freq_listening = list(COMM_FREQ, ENG_FREQ, SEC_FREQ, COMMON_FREQ, AIPRIV_FREQ) //command, engineering, security
 	for(var/i = 1441, i < 1489, i += 2)
 		freq_listening |= i
 

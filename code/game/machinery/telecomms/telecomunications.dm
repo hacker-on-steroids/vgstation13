@@ -80,6 +80,8 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		if(machine.loc.z != listening_level)
 			if(long_range_link == 0 && machine.long_range_link == 0)
 				continue
+		if(!machine.is_freq_listening(signal))
+			continue
 		// If we're sending a copy, be sure to create the copy for EACH machine and paste the data
 		var/datum/signal/copy = new /datum/signal
 		if(copysig)
@@ -125,8 +127,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 
 		send_count++
-		if(machine.is_freq_listening(signal))
-			machine.traffic++
+		machine.traffic++
 
 		if(copysig && copy)
 			machine.receive_information(copy, src)
@@ -165,6 +166,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
 		listening_level = position.z
+		
 
 // Keep listening_level in sync when the machine is physically moved (e.g. on a shuttle).
 /obj/machinery/telecomms/forceMove(atom/destination, step_x = 0, step_y = 0, no_tp = FALSE, harderforce = FALSE, glide_size_override = 0)
